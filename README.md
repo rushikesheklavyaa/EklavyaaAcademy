@@ -1,11 +1,30 @@
-<div align="center">
+# Eklavyaa Academy Landing Page
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+A modern, high-conversion landing page for Eklavyaa Academy, a premier coaching institute.
 
-  <h1>Built with AI Studio</h2>
+## Features
+- **Responsive Design**: Optimized for mobile, tablet, and desktop.
+- **Modern UI**: Built with React, Tailwind CSS, and Lucide icons.
+- **Smooth Animations**: Intersection observers for scroll-triggered animations.
+- **Enquiry System**: Integrated form handling with WhatsApp redirection.
+- **High Performance**: Optimized image loading and minimal bundle size.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Project Structure
+- `/components`: UI building blocks (Navbar, Hero, Courses, etc.)
+- `/ui`: Reusable atomic components (Buttons, Modals, Sections)
+- `index.tsx`: Main entry point
+- `types.ts`: TypeScript interfaces
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Tech Stack
+- **Framework**: React 19
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Hosting**: Recommended on Vercel or Netlify
 
-</div>
+## How to Deploy
+1. Push this code to a GitHub repository.
+2. Link the repository to Vercel.
+3. Your site will be live at a custom `.vercel.app` domain.
+
+---
+© 2026 Eklavyaa Academy. Aim. Learn. Achieve.
