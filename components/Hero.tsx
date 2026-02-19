@@ -1,24 +1,14 @@
+
 import React from 'react';
-import { Star } from 'lucide-react';
+import { Star, Zap } from 'lucide-react';
 import Button from './ui/Button';
 
 interface HeroProps {
   onOpenEnquiry: () => void;
+  onOpenRevision: () => void;
 }
 
-const Hero: React.FC<HeroProps> = ({ onOpenEnquiry }) => {
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 100;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-    }
-  };
-
+const Hero: React.FC<HeroProps> = ({ onOpenEnquiry, onOpenRevision }) => {
   return (
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-white text-secondary-900">
       {/* Grid Background */}
@@ -52,24 +42,25 @@ const Hero: React.FC<HeroProps> = ({ onOpenEnquiry }) => {
                 </h2>
                 
                 <p className="text-base md:text-lg text-slate-500 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0">
-                  Feeling overwhelmed by syllabus pressure? Follow the path of disciplined learning to rediscover clarity and success with our expert mentorship.
+                  Feeling overwhelmed by syllabus pressure? Follow the path of disciplined learning to rediscover clarity and success.
                 </p>
                 
+                {/* REPLACED BUTTONS SECTION */}
                 <div className="flex flex-col sm:flex-row items-center md:justify-start justify-center gap-4">
                   <Button 
                     variant="primary" 
                     size="lg" 
-                    className="rounded-full px-8 py-3.5 w-full sm:w-auto hover:-translate-y-1 transition-transform shadow-xl shadow-primary-500/20"
-                    onClick={onOpenEnquiry}
+                    className="rounded-full px-8 py-4 w-full sm:w-auto hover:-translate-y-1 transition-transform shadow-xl shadow-primary-500/20 flex items-center gap-2 relative overflow-hidden group"
+                    onClick={onOpenRevision}
                   >
-                    Join the Academy
+                    <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
+                    <Zap className="w-5 h-5 fill-white" />
+                    <span>Free Revision Batch (8th & 9th)</span>
                   </Button>
-                  <a href="#courses" onClick={(e) => scrollToSection(e, 'courses')}>
-                      <Button variant="white" size="lg" className="rounded-full px-8 py-3.5 bg-white border border-slate-200 text-slate-600 w-full sm:w-auto hover:text-primary-600 shadow-sm">
-                         Explore Courses
-                      </Button>
-                  </a>
                 </div>
+                <p className="mt-3 text-xs text-slate-400 font-medium">
+                  * Limited seats available. Hurry up!
+                </p>
             </div>
 
             {/* Right Column: Hero Image with Floating Animation */}

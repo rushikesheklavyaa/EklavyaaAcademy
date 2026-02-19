@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Button from './ui/Button';
@@ -5,9 +6,10 @@ import Logo from './Logo';
 
 interface NavbarProps {
   onOpenEnquiry: () => void;
+  onNavigateHome: () => void; // Added prop to go back home
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry }) => {
+const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry, onNavigateHome }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -44,17 +46,22 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry }) => {
     { name: 'Methodology', href: '#methodology', id: 'methodology' },
   ];
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 100;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-      setIsOpen(false);
-    }
+    onNavigateHome(); // Ensure we are on the home view first
+    
+    // Slight delay to allow view switch before scrolling if needed
+    setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+    }, 100);
+    setIsOpen(false);
   };
 
   return (
@@ -69,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry }) => {
         <div className="flex items-center justify-between">
           
           {/* Left: Logo & Text Branding */}
-          <a href="#" className="flex items-center gap-2 md:gap-3 group">
+          <a href="#" onClick={(e) => { e.preventDefault(); onNavigateHome(); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="flex items-center gap-2 md:gap-3 group">
              <Logo className="h-10 md:h-12 w-auto transition-transform duration-300 group-hover:scale-105" />
              <div className="flex flex-col">
                 <div className="flex items-baseline gap-1">
@@ -86,7 +93,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry }) => {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
+                onClick={(e) => handleLinkClick(e, link.href)}
                 className={`text-sm font-medium transition-all duration-300 relative group ${
                   activeSection === link.id ? 'text-primary-600' : 'text-slate-600 hover:text-secondary-900'
                 }`}
@@ -129,7 +136,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry }) => {
               className={`text-lg font-medium text-center transition-colors ${
                 activeSection === link.id ? 'text-primary-600' : 'text-slate-800'
               }`}
-              onClick={(e) => scrollToSection(e, link.href)}
+              onClick={(e) => handleLinkClick(e, link.href)}
             >
               {link.name}
             </a>
