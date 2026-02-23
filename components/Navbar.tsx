@@ -6,10 +6,11 @@ import Logo from './Logo';
 
 interface NavbarProps {
   onOpenEnquiry: () => void;
-  onNavigateHome: () => void; // Added prop to go back home
+  onNavigateHome: () => void;
+  onNavigateDownloads: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry, onNavigateHome }) => {
+const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry, onNavigateHome, onNavigateDownloads }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -20,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry, onNavigateHome }) => {
       setIsScrolled(window.scrollY > 10);
 
       // Handle active section
-      const sections = ['about', 'courses', 'features', 'methodology', 'downloads'];
+      const sections = ['about', 'courses', 'features', 'methodology'];
       let current = '';
       
       for (const section of sections) {
@@ -44,7 +45,6 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry, onNavigateHome }) => {
     { name: 'About', href: '#about', id: 'about' },
     { name: 'Courses', href: '#courses', id: 'courses' },
     { name: 'Methodology', href: '#methodology', id: 'methodology' },
-    { name: 'Downloads', href: '#downloads', id: 'downloads' },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -105,6 +105,16 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry, onNavigateHome }) => {
                 }`}></span>
               </a>
             ))}
+            <button
+              onClick={() => {
+                onNavigateDownloads();
+                setIsOpen(false);
+              }}
+              className="text-sm font-medium text-slate-600 hover:text-secondary-900 transition-all duration-300 relative group"
+            >
+              Downloads
+              <span className="absolute -bottom-1 left-0 h-0.5 bg-primary-500 transition-all duration-300 w-0 group-hover:w-full"></span>
+            </button>
             <Button 
               variant="secondary" 
               size="md" 
@@ -142,6 +152,15 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry, onNavigateHome }) => {
               {link.name}
             </a>
           ))}
+          <button
+            onClick={() => {
+              onNavigateDownloads();
+              setIsOpen(false);
+            }}
+            className="text-lg font-medium text-center text-slate-800 transition-colors"
+          >
+            Downloads
+          </button>
           <Button 
             className="w-full rounded-full py-4"
             onClick={() => {

@@ -13,7 +13,7 @@ import EnquiryModal from './components/EnquiryModal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import RevisionPage from './components/RevisionPage';
 
-type ViewState = 'home' | 'revision';
+type ViewState = 'home' | 'revision' | 'downloads';
 
 const App: React.FC = () => {
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
@@ -28,6 +28,10 @@ const App: React.FC = () => {
       <Navbar 
         onOpenEnquiry={() => setIsEnquiryModalOpen(true)} 
         onNavigateHome={() => setCurrentView('home')} 
+        onNavigateDownloads={() => {
+          setCurrentView('downloads');
+          scrollToTop();
+        }}
       />
       
       <main>
@@ -44,9 +48,12 @@ const App: React.FC = () => {
             <Courses />
             <Features />
             <Methodology />
-            <Downloads />
             <EnquiryForm />
           </>
+        ) : currentView === 'downloads' ? (
+          <div className="pt-20">
+             <Downloads />
+          </div>
         ) : (
           <RevisionPage onBack={() => {
             setCurrentView('home');
