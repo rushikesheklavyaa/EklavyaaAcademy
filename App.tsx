@@ -6,6 +6,7 @@ import About from './components/About';
 import Courses from './components/Courses';
 import Features from './components/Features';
 import Methodology from './components/Methodology';
+import Downloads from './components/Downloads';
 import EnquiryForm from './components/EnquiryForm';
 import Footer from './components/Footer';
 import EnquiryModal from './components/EnquiryModal';
@@ -43,6 +44,7 @@ const App: React.FC = () => {
             <Courses />
             <Features />
             <Methodology />
+            <Downloads />
             <EnquiryForm />
           </>
         ) : (

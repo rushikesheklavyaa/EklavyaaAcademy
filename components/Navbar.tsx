@@ -20,7 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry, onNavigateHome }) => {
       setIsScrolled(window.scrollY > 10);
 
       // Handle active section
-      const sections = ['about', 'courses', 'methodology', 'features'];
+      const sections = ['about', 'courses', 'features', 'methodology', 'downloads'];
       let current = '';
       
       for (const section of sections) {
@@ -44,6 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenEnquiry, onNavigateHome }) => {
     { name: 'About', href: '#about', id: 'about' },
     { name: 'Courses', href: '#courses', id: 'courses' },
     { name: 'Methodology', href: '#methodology', id: 'methodology' },
+    { name: 'Downloads', href: '#downloads', id: 'downloads' },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
