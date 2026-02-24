@@ -13,8 +13,8 @@ const subjects = [
     icon: <BookOpen className="w-6 h-6 text-blue-500" />,
     color: 'bg-blue-50 text-blue-600',
     files: [
-      { name: 'Algebra Revision Notes.pdf', size: 'PDF', url: '' },
-      { name: 'Geometry Revision Notes.pdf', size: 'PDF', url: '' },
+      { name: 'Algebra Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/file/d/1W7iyM5cawRr5sgrPJypcsow95d06nP7m/view?usp=sharing' },
+      { name: 'Geometry Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/file/d/1BOjpJGR8AlPvMO3Dw9oE5Kh0pO2_2w0T/view?usp=sharing' },
     ]
   },
   {
