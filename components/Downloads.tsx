@@ -13,8 +13,8 @@ const subjects = [
     icon: <BookOpen className="w-6 h-6 text-blue-500" />,
     color: 'bg-blue-50 text-blue-600',
     files: [
-      { name: 'Algebra Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/file/d/1W7iyM5cawRr5sgrPJypcsow95d06nP7m/view?usp=sharing' },
-      { name: 'Geometry Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/file/d/1BOjpJGR8AlPvMO3Dw9oE5Kh0pO2_2w0T/view?usp=sharing' },
+      { name: 'Algebra Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/uc?export=download&id=1W7iyM5cawRr5sgrPJypcsow95d06nP7m' },
+      { name: 'Geometry Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/uc?export=download&id=1BOjpJGR8AlPvMO3Dw9oE5Kh0pO2_2w0T' },
     ]
   },
   {
@@ -24,19 +24,14 @@ const subjects = [
     icon: <BookOpen className="w-6 h-6 text-green-500" />,
     color: 'bg-green-50 text-green-600',
     files: [
-      { name: 'Science 1 Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/file/d/1Wagv-dXzfjHCZ9QgRRHVxoRafyqjAccc/view?usp=drive_link' },
-      { name: 'Science 2 Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/file/d/1EtClFNcjnBJSCG9wDSMkD-qhtzJNVDlI/view?usp=drive_link' },
+      { name: 'Science 1 Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/uc?export=download&id=1Wagv-dXzfjHCZ9QgRRHVxoRafyqjAccc' },
+      { name: 'Science 2 Revision Notes.pdf', size: 'PDF', url: 'https://drive.google.com/uc?export=download&id=1EtClFNcjnBJSCG9wDSMkD-qhtzJNVDlI' },
     ]
   }
 ];
 
 const Downloads: React.FC = () => {
   const handleDownload = (file: { name: string; url?: string }) => {
-    if (file.url) {
-      window.open(file.url, '_blank');
-      return;
-    }
-
     // Fallback for local files if no URL is provided
     const fileUrl = `/notes/${file.name}`;
     
@@ -85,13 +80,25 @@ const Downloads: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="text-xs text-slate-400">{file.size}</span>
-                      <button 
-                        onClick={() => handleDownload(file)}
-                        className="text-primary-500 hover:text-primary-600 p-1 hover:bg-primary-50 rounded transition-colors"
-                        title="Download"
-                      >
-                        <Download className="w-4 h-4" />
-                      </button>
+                      {file.url ? (
+                        <a 
+                          href={file.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary-500 hover:text-primary-600 p-1 hover:bg-primary-50 rounded transition-colors"
+                          title="Download"
+                        >
+                          <Download className="w-4 h-4" />
+                        </a>
+                      ) : (
+                        <button 
+                          onClick={() => handleDownload(file)}
+                          className="text-primary-500 hover:text-primary-600 p-1 hover:bg-primary-50 rounded transition-colors"
+                          title="Download"
+                        >
+                          <Download className="w-4 h-4" />
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}
