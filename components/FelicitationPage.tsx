@@ -167,7 +167,10 @@ const FelicitationPage: React.FC<FelicitationPageProps> = ({ onBack }) => {
                 <div className="bg-purple-50 p-3 rounded-xl text-purple-600"><Users className="w-5 h-5" /></div>
                 <div>
                   <h4 className="font-bold text-slate-800 text-sm">Guest of Honor</h4>
-                  <p className="text-slate-500 text-sm">1. MD Surgeon<br/>2. High School Principal</p>
+                  <p className="text-slate-500 text-sm">
+                    <strong>Dr. SUNIL V. KALYANKAR</strong><br/>
+                    (MDS &ndash; Orthodontics & Dentofacial Orthopedics)
+                  </p>
                 </div>
               </div>
             </div>
