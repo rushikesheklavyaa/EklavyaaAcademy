@@ -1,9 +1,9 @@
 import { EnquiryFormData } from '../types';
 
 // Your Google Apps Script Web App URL
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcVi3-b7gw4sEjI8WtlaQHkkX2hH3oshj1Shj4cAK8URClWbF-3N0L0uVI7j86BeF_/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyq2Ms4c1dmofZuQxPoRlUD9Ly6dsa3k_VQovhMOJ9DjuNim0o6PANN4vmES4R7F6J5xA/exec';
 
-export const submitEnquiry = async (data: EnquiryFormData): Promise<boolean> => {
+export const submitEnquiry = async (data: any): Promise<boolean> => {
   // Verify the URL is configured (it should start with https)
   const isConfigured = GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.startsWith('https');
 
@@ -15,15 +15,9 @@ export const submitEnquiry = async (data: EnquiryFormData): Promise<boolean> => 
 
   try {
     const formData = new FormData();
-    formData.append('studentName', data.studentName);
-    formData.append('parentName', data.parentName);
-    formData.append('grade', data.grade);
-    formData.append('board', data.board);
-    formData.append('schoolName', data.schoolName);
-    formData.append('address', data.address);
-    formData.append('phone', data.phone);
-    formData.append('email', data.email || '');
-    formData.append('message', data.message || '');
+    Object.keys(data).forEach(key => {
+      formData.append(key, data[key] || '');
+    });
     
     // 'no-cors' mode is required for Google Scripts to avoid CORS errors in the browser
     await fetch(GOOGLE_SCRIPT_URL, {

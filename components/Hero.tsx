@@ -30,19 +30,23 @@ const Hero: React.FC<HeroProps> = ({ onOpenEnquiry, onOpenRevision }) => {
         <div className="grid md:grid-cols-2 gap-10 items-center">
             {/* Left Column: Text */}
             <div className="text-center md:text-left animate-fade-in-up animate-delay-100 order-2 md:order-1">
-                <div className="inline-flex items-center gap-2 bg-white border border-slate-200 shadow-sm rounded-full px-4 py-1.5 mb-6 mx-auto md:mx-0">
-                    <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
-                    <span className="text-xs font-semibold text-slate-600 tracking-wide">
-                        Admissions Open 2026-27
+                <div className="inline-flex items-center gap-2 bg-yellow-100 border border-yellow-200 shadow-sm rounded-full px-4 py-1.5 mb-6 mx-auto md:mx-0">
+                    <span className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
+                    <span className="text-xs font-bold text-yellow-800 tracking-wide uppercase">
+                        Felicitation Ceremony 2026
                     </span>
                 </div>
 
-                <h2 className="text-2xl md:text-4xl font-medium text-slate-700 leading-tight mb-6">
-                  Step out of the confusion and take command of your <span className="text-primary-500 font-serif italic font-bold">future.</span>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif text-secondary-900 leading-tight mb-4 font-bold">
+                  🌟 Celebrating the Pride of Our Academy – <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-amber-500">Board Toppers 2026</span> 🌟
                 </h2>
                 
-                <p className="text-base md:text-lg text-slate-500 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0">
-                  Feeling overwhelmed by syllabus pressure? Follow the path of disciplined learning to rediscover clarity and success.
+                <p className="text-sm md:text-base text-slate-600 mb-4 leading-relaxed max-w-lg mx-auto md:mx-0 font-medium">
+                  Congratulations to all our brilliant SSC (10th) and HSC (12th) students for their outstanding board results! We are proud to honor your hard work and achievements.
+                </p>
+
+                <p className="text-sm md:text-base text-slate-500 mb-8 leading-relaxed max-w-lg mx-auto md:mx-0">
+                  Students who have successfully passed the 2026 Board Examinations are invited to register for the grand felicitation event. Fill out the registration form below to confirm your seat.
                 </p>
                 
                 {/* REPLACED BUTTONS SECTION */}
@@ -50,16 +54,15 @@ const Hero: React.FC<HeroProps> = ({ onOpenEnquiry, onOpenRevision }) => {
                   <Button 
                     variant="primary" 
                     size="lg" 
-                    className="rounded-full px-8 py-4 w-full sm:w-auto hover:-translate-y-1 transition-transform shadow-xl shadow-primary-500/20 flex items-center gap-2 relative overflow-hidden group"
+                    className="rounded-full px-8 py-4 w-full sm:w-auto hover:-translate-y-1 transition-transform shadow-xl shadow-primary-500/20 flex items-center gap-2 relative overflow-hidden group bg-gradient-to-r from-blue-600 to-primary-600 text-white"
                     onClick={onOpenRevision}
                   >
                     <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
-                    <Zap className="w-5 h-5 fill-white" />
-                    <span>Free Revision Batch (8th & 9th)</span>
+                    <span>✅ Register Now</span>
                   </Button>
                 </div>
                 <p className="mt-3 text-xs text-slate-400 font-medium">
-                  * Limited seats available. Hurry up!
+                  * For SSC (10th) & HSC (12th) Board Toppers 2026
                 </p>
             </div>
 

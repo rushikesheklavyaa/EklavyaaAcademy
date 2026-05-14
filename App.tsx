@@ -11,9 +11,9 @@ import EnquiryForm from './components/EnquiryForm';
 import Footer from './components/Footer';
 import EnquiryModal from './components/EnquiryModal';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
-import RevisionPage from './components/RevisionPage';
+import FelicitationPage from './components/FelicitationPage';
 
-type ViewState = 'home' | 'revision' | 'downloads';
+type ViewState = 'home' | 'felicitation' | 'downloads';
 
 const App: React.FC = () => {
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
@@ -40,7 +40,7 @@ const App: React.FC = () => {
             <Hero 
               onOpenEnquiry={() => setIsEnquiryModalOpen(true)}
               onOpenRevision={() => {
-                setCurrentView('revision');
+                setCurrentView('felicitation');
                 scrollToTop();
               }}
             />
@@ -55,7 +55,7 @@ const App: React.FC = () => {
              <Downloads />
           </div>
         ) : (
-          <RevisionPage onBack={() => {
+          <FelicitationPage onBack={() => {
             setCurrentView('home');
             scrollToTop();
           }} />
