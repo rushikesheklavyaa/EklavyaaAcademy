@@ -74,7 +74,9 @@ const Footer: React.FC = () => {
             <ul className="space-y-4 text-sm text-slate-400">
                 <li className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-primary-500 shrink-0 mt-0.5" />
-                    <span>Eklavyaa Academy, Bungalow No. 1, Raje Chowk, Ambegaon Pathar, Pune - 411046</span>
+                    <a href="https://share.google/PHCFDj2NcS2OgJCfC" target="_blank" rel="noopener noreferrer" className="hover:text-primary-400 transition-colors">
+                      Eklavyaa Academy, Bungalow No. 1, Raje Chowk, Ambegaon Pathar, Pune - 411046
+                    </a>
                 </li>
                 <li className="flex flex-col gap-3">
                     <a href="tel:9011141618" className="flex items-center gap-3 hover:text-primary-400 transition-colors group">
