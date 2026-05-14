@@ -38,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenEnquiry, onOpenRevision }) => {
                 </div>
 
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif text-secondary-900 leading-tight mb-4 font-bold">
-                  🌟 Celebrating the Pride of Our Academy – <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-amber-500">Board Toppers 2026</span> 🌟
+                  Celebrating the Pride of Success – <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-amber-500">Board Toppers 2026</span> 🌟
                 </h2>
                 
                 <p className="text-sm md:text-base text-slate-600 mb-4 leading-relaxed max-w-lg mx-auto md:mx-0 font-medium">
