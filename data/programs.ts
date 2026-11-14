@@ -31,7 +31,7 @@ export const PROGRAMS: Record<ProgramId, ProgramDefinition> = {
       'Fee scholarship for every participant: 15% to 50% off Eklavyaa Academy fees',
     ],
     ctaLabel: 'Register for E-SAT (Free)',
-    whatsappGroupUrl: 'https://chat.whatsapp.com/K9uqFoRrE5t3KQZRVwkTpi?s=cl&p=i&iam=2',
+    whatsappGroupUrl: 'https://chat.whatsapp.com/BBn6zsZOmgC5ndui8w9Pzt?s=cl&p=i&iam=2',
     whatsappGroupLabel: 'Join E-SAT Official WhatsApp Group',
     successHeadline: 'E-SAT Entrance Exam Registration Confirmed!',
     successMessage:
@@ -63,7 +63,7 @@ export const PROGRAMS: Record<ProgramId, ProgramDefinition> = {
     ctaLabel: 'Register for Finish Line 30 (Std 10)',
     feeNote:
       'Finish Line 30 (Std 10) Course Fee: Rs. 2,999. Our team will share batch timings and payment details on WhatsApp after registration. No payment is collected on this page.',
-    whatsappGroupUrl: 'https://chat.whatsapp.com/G3ANA4pCDlQJYEph0DqFEF?s=cl&p=i&iam=2',
+    whatsappGroupUrl: 'https://chat.whatsapp.com/HpAua33SzbXAlnydR8ICnt?s=cl&p=i&iam=2',
     whatsappGroupLabel: 'Join 10th Std Crash Course WhatsApp Group',
     successHeadline: 'Finish Line 30 (Std 10) Registration Confirmed!',
     successMessage:
@@ -112,7 +112,7 @@ export const PROGRAMS: Record<ProgramId, ProgramDefinition> = {
     ctaLabel: 'Register for Finish Line 30 (12th Accounts)',
     feeNote:
       'Finish Line 30 (12th Commerce Accountancy) Course Fee: Rs. 2,999. Limited seats available — our team will share batch timings and payment details on WhatsApp after registration.',
-    whatsappGroupUrl: 'https://chat.whatsapp.com/Ez69TQlulZ0405SwCvSZ6X?s=cl&p=i&iam=2',
+    whatsappGroupUrl: 'https://chat.whatsapp.com/IanVhbrEfPe14yrKbZpowT?s=cl&p=i&iam=2',
     whatsappGroupLabel: 'Join 12th Accounts Crash Course WhatsApp Group',
     successHeadline: '12th Commerce – Accountancy Registration Confirmed!',
     successMessage:
