@@ -21,15 +21,17 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { onAuthStateChanged, signInWithPopup, signOut, User } from 'firebase/auth';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import Section from './ui/Section';
 import { EventCategory, EventPostRecord, EventStatusLabel } from '../types';
 import {
   auth,
   db,
-  googleProvider,
+  formatFirebaseAuthError,
   handleFirestoreError,
   OperationType,
+  resolvePendingGoogleRedirect,
+  signInWithGoogleSmart,
 } from '../utils/firebase';
 import {
   checkIsAdminUser,
@@ -79,10 +81,14 @@ const EventsGallery: React.FC<EventsGalleryProps> = ({ onOpenAdmin }) => {
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
+    resolvePendingGoogleRedirect().catch((err) => {
+      setAuthError(formatFirebaseAuthError(err));
+    });
+
     const unsub = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      setAuthError(null);
       if (currentUser) {
+        setAuthError(null);
         const perms = await checkIsAdminUser();
         setCanUploadEvents(perms.canUploadEvents);
         setIsAdmin(perms.isAdmin);
@@ -151,10 +157,9 @@ const EventsGallery: React.FC<EventsGalleryProps> = ({ onOpenAdmin }) => {
   const handleGoogleSignIn = async () => {
     setAuthError(null);
     try {
-      await signInWithPopup(auth, googleProvider);
+      await signInWithGoogleSmart(false);
     } catch (err) {
-      console.error(err);
-      setAuthError('Google sign-in was cancelled or blocked by the browser.');
+      setAuthError(formatFirebaseAuthError(err));
     }
   };
 

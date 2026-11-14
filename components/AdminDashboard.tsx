@@ -20,7 +20,7 @@ import {
   Inbox,
 } from 'lucide-react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { onAuthStateChanged, signInWithPopup, signOut, User } from 'firebase/auth';
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import {
   AdminMemberRecord,
   AdmissionEnquiryRecord,
@@ -34,9 +34,11 @@ import {
 import {
   auth,
   db,
-  googleProvider,
+  formatFirebaseAuthError,
   handleFirestoreError,
   OperationType,
+  resolvePendingGoogleRedirect,
+  signInWithGoogleSmart,
 } from '../utils/firebase';
 import {
   addAdminEmail,
@@ -117,10 +119,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackHome }) => {
   };
 
   useEffect(() => {
+    resolvePendingGoogleRedirect().catch((err) => {
+      setAuthError(formatFirebaseAuthError(err));
+    });
+
     const unsub = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      setAuthError(null);
       if (currentUser) {
+        setAuthError(null);
         const perms = await checkIsAdminUser();
         setIsAdmin(perms.isAdmin);
         setIsPrimaryAdmin(perms.isPrimaryAdmin);
@@ -293,12 +299,17 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackHome }) => {
     return () => unsubEv();
   }, [canUploadEvents, isAdmin]);
 
-  const handleLogin = async () => {
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  const handleLogin = async (preferRedirect = false) => {
     setAuthError(null);
+    setIsLoggingIn(true);
     try {
-      await signInWithPopup(auth, googleProvider);
-    } catch {
-      setAuthError('Google sign-in could not complete. Please allow popups and try again.');
+      await signInWithGoogleSmart(preferRedirect);
+    } catch (err) {
+      setAuthError(formatFirebaseAuthError(err));
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
@@ -519,12 +530,23 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackHome }) => {
           )}
           <button
             type="button"
-            onClick={handleLogin}
-            className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold text-sm shadow-lg shadow-indigo-500/20 inline-flex items-center justify-center gap-2 hover:-translate-y-0.5 transition-all mb-3"
+            disabled={isLoggingIn}
+            onClick={() => handleLogin(false)}
+            className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold text-sm shadow-lg shadow-indigo-500/20 inline-flex items-center justify-center gap-2 hover:-translate-y-0.5 transition-all mb-2.5 disabled:opacity-60"
           >
             <LogIn className="w-4 h-4" />
-            Sign in with Google
+            {isLoggingIn ? 'Signing in...' : 'Sign in with Google'}
           </button>
+          {typeof window !== 'undefined' && window.self === window.top && (
+            <button
+              type="button"
+              disabled={isLoggingIn}
+              onClick={() => handleLogin(true)}
+              className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors mb-2.5 disabled:opacity-60"
+            >
+              Mobile / In-App Browser? Use Redirect Sign-In
+            </button>
+          )}
           <button
             type="button"
             onClick={onBackHome}
