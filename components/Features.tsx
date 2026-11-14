@@ -39,7 +39,7 @@ const features: Feature[] = [
 
 const Features: React.FC = () => {
   return (
-    <Section id="features" bg="white">
+    <Section id="features" bg="white" animateOnScroll>
        <Reveal>
          <div className="text-center max-w-3xl mx-auto mb-16">
            <h2 className="text-primary-600 font-bold tracking-wider uppercase text-sm mb-2">Why Choose Us</h2>
@@ -54,7 +54,7 @@ const Features: React.FC = () => {
        
        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, idx) => (
-            <Reveal key={idx} delay={idx * 100} direction="up" className="h-full">
+            <Reveal key={idx} delay={Math.min(idx * 100, 500)} direction="up" className="h-full">
               <div className="flex flex-col gap-6 p-8 rounded-2xl bg-slate-50/50 hover:bg-white hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 border border-slate-100 h-full group hover:-translate-y-2">
                   <div className="w-16 h-16 rounded-2xl bg-orange-100 text-primary-600 flex items-center justify-center group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 shadow-sm">
                       <feature.icon className="w-8 h-8" />

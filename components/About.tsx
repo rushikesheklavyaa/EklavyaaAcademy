@@ -5,21 +5,21 @@ import Reveal from './ui/Reveal';
 
 const About: React.FC = () => {
   return (
-    <Section id="about" bg="white">
+    <Section id="about" bg="white" animateOnScroll>
       <div className="max-w-4xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <Reveal delay={100}>
+          <Reveal delay={0}>
             <h2 className="text-primary-600 font-bold tracking-wider uppercase text-sm mb-2">About Us</h2>
           </Reveal>
           
-          <Reveal delay={200}>
+          <Reveal delay={100}>
             <h3 className="text-4xl md:text-5xl font-serif font-bold text-secondary-900 mb-6">
               The Spirit of <span className="text-primary-500">Self-Belief</span>
             </h3>
           </Reveal>
           
-          <Reveal delay={300}>
+          <Reveal delay={150}>
             <div className="space-y-6 text-slate-600 leading-relaxed text-lg">
               <p>
                 <strong>EKLAVYAA ACADEMY</strong> is built on the foundational values of the legendary archer Eklavya, who proved that with unwavering focus (Ekagrata) and dedication (Shraddha) any goal can be achieved.
@@ -33,7 +33,7 @@ const About: React.FC = () => {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 gap-6 mt-8">
-             <Reveal direction="up" delay={400} className="h-full">
+             <Reveal direction="up" delay={200} className="h-full">
                <div className="flex flex-col items-center text-center p-6 bg-slate-50 rounded-2xl border border-slate-100 h-full hover:shadow-md transition-all duration-300">
                   <div className="p-3 bg-secondary-100 text-secondary-900 rounded-xl mb-4">
                       <Target className="w-8 h-8" />
@@ -43,7 +43,7 @@ const About: React.FC = () => {
                </div>
              </Reveal>
              
-             <Reveal direction="up" delay={500} className="h-full">
+             <Reveal direction="up" delay={300} className="h-full">
                <div className="flex flex-col items-center text-center p-6 bg-slate-50 rounded-2xl border border-slate-100 h-full hover:shadow-md transition-all duration-300">
                   <div className="p-3 bg-primary-100 text-primary-600 rounded-xl mb-4">
                       <Heart className="w-8 h-8" />

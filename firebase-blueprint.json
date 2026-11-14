@@ -1,0 +1,189 @@
+{
+  "entities": {
+    "ProgramRegistration": {
+      "title": "Program Registration",
+      "description": "Student registration for Term 2 board prep programs (Std 10 & Std 12 Commerce Accounts) and E-SAT aptitude test.",
+      "type": "object",
+      "properties": {
+        "programId": {
+          "type": "string",
+          "enum": ["boards-unlocked", "blitz", "finish-line", "accounts-30", "accounts-3", "esat"],
+          "description": "Identifier of the selected program"
+        },
+        "programName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80,
+          "description": "Human-readable program name"
+        },
+        "programKind": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80,
+          "description": "Program duration or category"
+        },
+        "feeLabel": {
+          "type": "string",
+          "enum": ["FREE", "Rs. 2,999"],
+          "description": "Program fee label"
+        },
+        "studentName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100,
+          "description": "Student full name"
+        },
+        "standard": {
+          "type": "string",
+          "enum": ["Std 5", "Std 6", "Std 7", "Std 8", "Std 9", "Std 10", "Std 11", "Std 12", "Std 12 (Commerce)"],
+          "description": "Student school or junior college standard"
+        },
+        "board": {
+          "type": "string",
+          "enum": ["CBSE", "SSC", "HSC"],
+          "description": "Education board"
+        },
+        "schoolName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 150,
+          "description": "Student school or junior college name"
+        },
+        "parentMobile": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[6-9][0-9]{9}$",
+          "description": "10-digit parent or guardian mobile number"
+        },
+        "studentMobile": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Optional 10-digit student mobile number"
+        },
+        "consentAccepted": {
+          "type": "boolean",
+          "description": "Guardian consent to be contacted via WhatsApp or SMS"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["new", "contacted", "enrolled", "cancelled"],
+          "description": "Follow-up status managed by academy admins"
+        },
+        "adminNotes": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Internal follow-up notes for academy staff"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of registration"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last update"
+        }
+      },
+      "required": [
+        "programId",
+        "programName",
+        "programKind",
+        "feeLabel",
+        "studentName",
+        "standard",
+        "board",
+        "schoolName",
+        "parentMobile",
+        "studentMobile",
+        "consentAccepted",
+        "status",
+        "adminNotes",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AdmissionEnquiry": {
+      "title": "Admission Enquiry",
+      "description": "General admission enquiry submitted from website enquiry form or modal.",
+      "type": "object",
+      "properties": {
+        "studentName": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "parentName": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "grade": { "type": "string", "minLength": 2, "maxLength": 40 },
+        "board": { "type": "string", "minLength": 2, "maxLength": 40 },
+        "schoolName": { "type": "string", "minLength": 2, "maxLength": 150 },
+        "phone": { "type": "string", "minLength": 10, "maxLength": 10, "pattern": "^[0-9]{10}$" },
+        "address": { "type": "string", "maxLength": 300 },
+        "email": { "type": "string", "maxLength": 120 },
+        "message": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "enum": ["new", "contacted", "enrolled", "closed"] },
+        "adminNotes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "studentName", "parentName", "grade", "board", "schoolName",
+        "phone", "address", "email", "message", "status", "adminNotes",
+        "createdAt", "updatedAt"
+      ]
+    },
+    "AdminMember": {
+      "title": "Admin Member",
+      "description": "Allowlisted verified admin email granted access to the registration dashboard.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email", "minLength": 5, "maxLength": 120 },
+        "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "role": { "type": "string", "enum": ["admin"] },
+        "addedBy": { "type": "string", "minLength": 5, "maxLength": 120 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "name", "role", "addedBy", "createdAt"]
+    },
+    "EventPost": {
+      "title": "Academy Event Photo Post",
+      "description": "Event photo and caption posted by authorized academy uploaders for Felicitation, Rural Immersion, Diwali Celebration, Educational Trips, and Field Visits.",
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": ["felicitation", "rural-immersion", "diwali", "educational-trip", "field-visit"]
+        },
+        "categoryLabel": { "type": "string", "minLength": 2, "maxLength": 50 },
+        "title": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "caption": { "type": "string", "minLength": 2, "maxLength": 400 },
+        "eventDate": { "type": "string", "minLength": 2, "maxLength": 40 },
+        "statusLabel": { "type": "string", "enum": ["Completed", "Upcoming"] },
+        "imageUrl": { "type": "string", "minLength": 10, "maxLength": 350000 },
+        "isPublished": { "type": "boolean" },
+        "postedBy": { "type": "string", "minLength": 5, "maxLength": 120 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "category", "categoryLabel", "title", "caption", "eventDate",
+        "statusLabel", "imageUrl", "isPublished", "postedBy", "createdAt", "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/program_registrations/{registrationId}": {
+      "schema": { "$ref": "#/entities/ProgramRegistration" },
+      "description": "Term 2 exam/program and E-SAT student registrations."
+    },
+    "/admission_enquiries/{enquiryId}": {
+      "schema": { "$ref": "#/entities/AdmissionEnquiry" },
+      "description": "General coaching admission enquiries."
+    },
+    "/admin_emails/{adminEmail}": {
+      "schema": { "$ref": "#/entities/AdminMember" },
+      "description": "Allowlisted verified admin emails managed by the primary academy owner."
+    },
+    "/event_posts/{postId}": {
+      "schema": { "$ref": "#/entities/EventPost" },
+      "description": "Public academy activity and event photo posts managed by verified admins and authorized event uploaders."
+    }
+  }
+}

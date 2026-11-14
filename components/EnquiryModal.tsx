@@ -55,13 +55,11 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  const openWhatsApp = () => {
-    if (!submittedData) return;
-    const phoneNumber = '919011141618'; 
-    const text = `Hello Eklavyaa Academy, I have just submitted an enquiry on your website.\n\n*Student Details:*\nName: ${submittedData.studentName}\nClass: ${submittedData.grade}\nBoard: ${submittedData.board}\nSchool: ${submittedData.schoolName}\nParent: ${submittedData.parentName}\nPhone: ${submittedData.phone}\n\nPlease share the coaching details and brochure.`;
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
-  };
+  const whatsappUrl = submittedData
+    ? `https://wa.me/919011141618?text=${encodeURIComponent(
+        `Hello Eklavyaa Academy, I have just submitted an enquiry on your website.\n\n*Student Details:*\nName: ${submittedData.studentName}\nClass: ${submittedData.grade}\nBoard: ${submittedData.board}\nSchool: ${submittedData.schoolName}\nParent: ${submittedData.parentName}\nPhone: ${submittedData.phone}\n\nPlease share the coaching details and brochure.`
+      )}`
+    : '#';
 
   const renderBoardOptions = () => {
     const isHigherSecondary = formData.grade === '11th Standard' || formData.grade === '12th Standard';
@@ -92,13 +90,15 @@ const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, onClose }) => {
             </p>
             
             <div className="space-y-3 w-full">
-              <button 
-                  onClick={openWhatsApp}
+              <a 
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 w-full py-4 px-6 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-xl font-bold shadow-lg shadow-green-500/10 transition-all active:scale-95"
               >
                   <MessageCircle className="w-5 h-5" />
                   Continue on WhatsApp
-              </button>
+              </a>
 
               <button 
                 onClick={handleClose}

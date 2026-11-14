@@ -36,21 +36,7 @@ const EnquiryForm: React.FC = () => {
     e.preventDefault();
     setStatus('submitting');
     
-    const submissionData = {
-      SheetName: 'Sheet1', // Default tab for normal enquiries
-      FormType: 'Admission Enquiry',
-      StudentName: formData.studentName,
-      ParentName: formData.parentName,
-      Standard: formData.grade,
-      Board: formData.board,
-      SchoolName: formData.schoolName,
-      Phone: formData.phone,
-      Email: formData.email,
-      Message: formData.message,
-      Address: formData.address
-    };
-
-    const success = await submitEnquiry(submissionData);
+    const success = await submitEnquiry(formData);
     
     if (success) {
       setSubmittedData({ ...formData });

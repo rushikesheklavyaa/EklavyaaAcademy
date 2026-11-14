@@ -59,7 +59,7 @@ const Courses: React.FC = () => {
   };
 
   return (
-    <Section id="courses" bg="light">
+    <Section id="courses" bg="light" animateOnScroll>
       <Reveal>
         <div className="text-center max-w-4xl mx-auto mb-16">
           <div className="flex flex-col items-center">
@@ -78,7 +78,7 @@ const Courses: React.FC = () => {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {courses.map((course, index) => (
-          <Reveal key={course.id} delay={index * 150} direction="up" className="h-full">
+          <Reveal key={course.id} delay={index * 100} direction="up" className="h-full">
             <div className={`h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-b-4 ${course.color} group cursor-default flex flex-col`}>
               {/* Image Area with Badge Overlays as seen in reference */}
               <div className="relative h-52 overflow-hidden">

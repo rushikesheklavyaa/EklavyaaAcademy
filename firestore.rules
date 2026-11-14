@@ -1,0 +1,219 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidEmailDocId(id) {
+      return id is string && id.size() >= 5 && id.size() <= 120 && id.matches('^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isPrimaryAdmin() {
+      return isVerified() && request.auth.token.email == 'rushikesh.eklavyaa@gmail.com';
+    }
+
+    function isAdmin() {
+      return isPrimaryAdmin() || (
+        isVerified() &&
+        request.auth.token.email is string &&
+        exists(/databases/$(database)/documents/admin_emails/$(request.auth.token.email))
+      );
+    }
+
+    function isEventManager() {
+      return isAdmin() || (
+        isVerified() &&
+        request.auth.token.email == 'enquiry.eklavya@gmail.com'
+      );
+    }
+
+    function isValidProgramRegistration(data) {
+      return data.keys().hasAll([
+          'programId', 'programName', 'programKind', 'feeLabel',
+          'studentName', 'standard', 'board', 'schoolName',
+          'parentMobile', 'studentMobile', 'consentAccepted',
+          'status', 'adminNotes', 'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'programId', 'programName', 'programKind', 'feeLabel',
+          'studentName', 'standard', 'board', 'schoolName',
+          'parentMobile', 'studentMobile', 'consentAccepted',
+          'status', 'adminNotes', 'createdAt', 'updatedAt'
+        ])
+        && data.programId is string && data.programId in ['boards-unlocked', 'blitz', 'finish-line', 'accounts-30', 'accounts-3', 'esat']
+        && data.programName is string && data.programName.size() >= 2 && data.programName.size() <= 80
+        && data.programKind is string && data.programKind.size() >= 2 && data.programKind.size() <= 80
+        && data.feeLabel is string && data.feeLabel in ['FREE', 'Rs. 2,999']
+        && data.studentName is string && data.studentName.size() >= 2 && data.studentName.size() <= 100
+        && data.standard is string && data.standard in ['Std 5', 'Std 6', 'Std 7', 'Std 8', 'Std 9', 'Std 10', 'Std 11', 'Std 12', 'Std 12 (Commerce)']
+        && data.board is string && data.board in ['CBSE', 'SSC', 'HSC']
+        && data.schoolName is string && data.schoolName.size() >= 2 && data.schoolName.size() <= 150
+        && data.parentMobile is string && data.parentMobile.size() == 10 && data.parentMobile.matches('^[6-9][0-9]{9}$')
+        && data.studentMobile is string && (
+          data.studentMobile == '' ||
+          (data.studentMobile.size() == 10 && data.studentMobile.matches('^[6-9][0-9]{9}$'))
+        )
+        && data.consentAccepted is bool && data.consentAccepted == true
+        && data.status is string && data.status in ['new', 'contacted', 'enrolled', 'cancelled']
+        && data.adminNotes is string && data.adminNotes.size() <= 500
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidAdmissionEnquiry(data) {
+      return data.keys().hasAll([
+          'studentName', 'parentName', 'grade', 'board', 'schoolName',
+          'phone', 'address', 'email', 'message',
+          'status', 'adminNotes', 'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'studentName', 'parentName', 'grade', 'board', 'schoolName',
+          'phone', 'address', 'email', 'message',
+          'status', 'adminNotes', 'createdAt', 'updatedAt'
+        ])
+        && data.studentName is string && data.studentName.size() >= 2 && data.studentName.size() <= 100
+        && data.parentName is string && data.parentName.size() >= 2 && data.parentName.size() <= 100
+        && data.grade is string && data.grade.size() >= 2 && data.grade.size() <= 40
+        && data.board is string && data.board.size() >= 2 && data.board.size() <= 40
+        && data.schoolName is string && data.schoolName.size() >= 2 && data.schoolName.size() <= 150
+        && data.phone is string && data.phone.size() == 10 && data.phone.matches('^[0-9]{10}$')
+        && data.address is string && data.address.size() <= 300
+        && data.email is string && data.email.size() <= 120
+        && data.message is string && data.message.size() <= 500
+        && data.status is string && data.status in ['new', 'contacted', 'enrolled', 'closed']
+        && data.adminNotes is string && data.adminNotes.size() <= 500
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidAdminMember(data, docId) {
+      return data.keys().hasAll(['email', 'name', 'role', 'addedBy', 'createdAt'])
+        && data.keys().hasOnly(['email', 'name', 'role', 'addedBy', 'createdAt'])
+        && data.email is string && data.email == docId && data.email.size() >= 5 && data.email.size() <= 120
+        && data.name is string && data.name.size() >= 2 && data.name.size() <= 100
+        && data.role is string && data.role == 'admin'
+        && data.addedBy is string && data.addedBy.size() >= 5 && data.addedBy.size() <= 120
+        && data.createdAt is timestamp;
+    }
+
+    function isValidEventPost(data) {
+      return data.keys().hasAll([
+          'category', 'categoryLabel', 'title', 'caption', 'eventDate',
+          'statusLabel', 'imageUrl', 'isPublished', 'postedBy', 'createdAt', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'category', 'categoryLabel', 'title', 'caption', 'eventDate',
+          'statusLabel', 'imageUrl', 'isPublished', 'postedBy', 'createdAt', 'updatedAt'
+        ])
+        && data.category is string && data.category in ['felicitation', 'rural-immersion', 'diwali', 'educational-trip', 'field-visit']
+        && data.categoryLabel is string && data.categoryLabel.size() >= 2 && data.categoryLabel.size() <= 50
+        && data.title is string && data.title.size() >= 2 && data.title.size() <= 100
+        && data.caption is string && data.caption.size() >= 2 && data.caption.size() <= 400
+        && data.eventDate is string && data.eventDate.size() >= 2 && data.eventDate.size() <= 40
+        && data.statusLabel is string && data.statusLabel in ['Completed', 'Upcoming']
+        && data.imageUrl is string && data.imageUrl.size() >= 10 && data.imageUrl.size() <= 350000
+        && data.imageUrl.matches('^(https://|data:image/(jpeg|jpg|png|webp);base64,).*')
+        && data.isPublished is bool
+        && data.postedBy is string && data.postedBy.size() >= 5 && data.postedBy.size() <= 120
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    match /program_registrations/{registrationId} {
+      allow get: if isValidId(registrationId) && isAdmin();
+      allow list: if isAdmin();
+      allow create: if isValidId(registrationId)
+        && isValidProgramRegistration(incoming())
+        && incoming().status == 'new'
+        && incoming().adminNotes == ''
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isValidId(registrationId)
+        && isAdmin()
+        && isValidProgramRegistration(incoming())
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'adminNotes', 'updatedAt']);
+      allow delete: if isValidId(registrationId) && isAdmin();
+    }
+
+    match /admission_enquiries/{enquiryId} {
+      allow get: if isValidId(enquiryId) && isAdmin();
+      allow list: if isAdmin();
+      allow create: if isValidId(enquiryId)
+        && isValidAdmissionEnquiry(incoming())
+        && incoming().status == 'new'
+        && incoming().adminNotes == ''
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isValidId(enquiryId)
+        && isAdmin()
+        && isValidAdmissionEnquiry(incoming())
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['status', 'adminNotes', 'updatedAt']);
+      allow delete: if isValidId(enquiryId) && isAdmin();
+    }
+
+    match /admin_emails/{adminEmail} {
+      allow get: if isValidEmailDocId(adminEmail) && (
+        isPrimaryAdmin() ||
+        (isVerified() && request.auth.token.email == adminEmail)
+      );
+      allow list: if isPrimaryAdmin();
+      allow create: if isValidEmailDocId(adminEmail)
+        && isPrimaryAdmin()
+        && isValidAdminMember(incoming(), adminEmail)
+        && incoming().createdAt == request.time;
+      allow update: if false;
+      allow delete: if isValidEmailDocId(adminEmail)
+        && isPrimaryAdmin()
+        && adminEmail != 'rushikesh.eklavyaa@gmail.com';
+    }
+
+    match /event_posts/{postId} {
+      allow get: if isValidId(postId) && (existing().isPublished == true || isEventManager());
+      allow list: if resource.data.isPublished == true || isEventManager();
+      allow create: if isValidId(postId)
+        && isEventManager()
+        && isValidEventPost(incoming())
+        && incoming().postedBy == request.auth.token.email
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+      allow update: if isValidId(postId)
+        && isEventManager()
+        && isValidEventPost(incoming())
+        && incoming().postedBy == existing().postedBy
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'category', 'categoryLabel', 'title', 'caption', 'eventDate',
+          'statusLabel', 'imageUrl', 'isPublished', 'updatedAt'
+        ]);
+      allow delete: if isValidId(postId) && isEventManager();
+    }
+  }
+}
