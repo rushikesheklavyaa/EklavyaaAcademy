@@ -63,47 +63,47 @@ const Hero: React.FC<HeroProps> = ({ onOpenCourseTab }) => {
         {/* 2 Flagship Programs: E-SAT Entrance Exam & Finish Line 30 - Crash Course */}
         <div id="hero-programs" className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {/* E-SAT Entrance Exam */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-8 md:p-9 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+          <div className="bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 text-white border border-indigo-800/80 rounded-2xl p-8 md:p-9 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
             <div>
               <div className="flex items-center justify-between gap-3 mb-5">
-                <span className="text-xs font-bold text-indigo-700 uppercase tracking-wider flex items-center gap-2">
+                <span className="text-xs font-bold text-cyan-300 uppercase tracking-wider flex items-center gap-2">
                   <Award className="w-4 h-4" /> Scholarship & Aptitude Exam
                 </span>
-                <span className="text-xs font-bold text-indigo-700 tabular-nums">
+                <span className="text-xs font-bold text-cyan-300 tabular-nums">
                   FREE · Std 5 to 12
                 </span>
               </div>
 
-              <h2 className="font-bold text-secondary-900 text-3xl tracking-tight mb-3">
+              <h2 className="font-bold text-white text-3xl tracking-tight mb-3">
                 E-SAT Entrance Exam
               </h2>
-              <p className="text-sm md:text-base text-slate-600 leading-relaxed mb-6">
+              <p className="text-sm md:text-base text-indigo-100/85 leading-relaxed mb-6">
                 Eklavyaa Scholarship & Aptitude Test for all 5th to 12th Std students (CBSE, SSC &
                 HSC). Benchmark aptitude in 30 minutes and unlock merit fee scholarships.
               </p>
 
-              <div className="grid grid-cols-3 gap-3 py-4 px-4 rounded-xl bg-slate-50 border border-slate-100 mb-6 text-center">
+              <div className="grid grid-cols-3 gap-3 py-4 px-4 rounded-xl bg-indigo-950/65 border border-indigo-700/70 mb-6 text-center">
                 <div>
-                  <div className="text-lg font-bold text-secondary-900 tabular-nums">50 MCQs</div>
-                  <div className="text-[11px] text-slate-500">30 Minutes</div>
+                  <div className="text-lg font-bold text-white tabular-nums">50 MCQs</div>
+                  <div className="text-[11px] text-indigo-200/80">30 Minutes</div>
                 </div>
-                <div className="border-x border-slate-200">
-                  <div className="text-lg font-bold text-secondary-900 tabular-nums">Std 5–12</div>
-                  <div className="text-[11px] text-slate-500">All Boards</div>
+                <div className="border-x border-indigo-700/70">
+                  <div className="text-lg font-bold text-white tabular-nums">Std 5–12</div>
+                  <div className="text-[11px] text-indigo-200/80">All Boards</div>
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-indigo-700 tabular-nums">15%–50%</div>
-                  <div className="text-[11px] text-slate-500">Scholarship</div>
+                  <div className="text-lg font-bold text-cyan-300 tabular-nums">15%–50%</div>
+                  <div className="text-[11px] text-indigo-200/80">Scholarship</div>
                 </div>
               </div>
 
-              <ul className="space-y-2.5 mb-8 text-sm text-slate-700">
+              <ul className="space-y-2.5 mb-8 text-sm text-indigo-100">
                 <li className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+                  <Check className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                   <span>Quantitative, Logical Reasoning & Analytical Assessment</span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+                  <Check className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                   <span>Guaranteed Merit Certificate & Tuition Fee Waiver</span>
                 </li>
               </ul>
@@ -112,7 +112,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenCourseTab }) => {
             <button
               type="button"
               onClick={() => onOpenCourseTab('esat')}
-              className="group w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-sm sm:text-base shadow-lg shadow-indigo-600/25 hover:shadow-xl hover:shadow-indigo-600/35 hover:-translate-y-0.5 transition-all duration-200 whitespace-nowrap"
+              className="group w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-600 text-white font-bold text-sm sm:text-base shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-200 whitespace-nowrap"
             >
               <span>Register for E-SAT Entrance Exam</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
